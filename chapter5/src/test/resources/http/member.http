@@ -1,0 +1,4 @@
+GET localhost:8080/members
+
+###
+GET localhost:8080/member/member1
