@@ -1,0 +1,11 @@
+### GET request to example server
+POST localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "title": "My first article",
+  "content": "This is my first article"
+}
+
+
+###
