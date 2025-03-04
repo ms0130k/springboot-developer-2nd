@@ -1,4 +1,4 @@
-package com.shock.springbootdeveloper;
+package com.shock.springbootdeveloper.controller;
 
 import com.shock.springbootdeveloper.domain.Article;
 import com.shock.springbootdeveloper.dto.AddArticleRequest;
