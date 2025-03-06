@@ -19,7 +19,9 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -61,5 +63,49 @@ class BlogApiControllerTest {
 
         assertThat(articles.size()).isEqualTo(1);
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
+    }
+
+    @DisplayName("find all articles")
+    @Test
+    public void findAllArticles() throws Exception {
+        // given
+        String url = "/api/articles";
+        String title = "제목 1";
+        String content = "내용 1";
+
+        // when
+        ResultActions result = mockMvc.perform(get(url)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value(title))
+                .andExpect(jsonPath("$[0].content").value(content));
+    }
+
+    @DisplayName("find article by id")
+    @Test
+    public void findArticleById() throws Exception {
+        // given
+        String url = "/api/articles/{id}";
+        String title = "제목";
+        String content = "내용";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        // when
+        ResultActions result = mockMvc.perform(get(url, savedArticle.getId())
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(title))
+                .andExpect(jsonPath("$.content").value(content));
+
     }
 }

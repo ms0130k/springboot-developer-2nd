@@ -7,5 +7,8 @@ Content-Type: application/json
   "content": "This is my first article"
 }
 
+###
+GET localhost:8080/api/articles
 
 ###
+DELETE localhost:8080/api/articles/10
