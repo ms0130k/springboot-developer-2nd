@@ -3,6 +3,7 @@ package com.shock.springbootdeveloper.controller;
 import com.shock.springbootdeveloper.domain.Article;
 import com.shock.springbootdeveloper.dto.AddArticleRequest;
 import com.shock.springbootdeveloper.dto.ArticleResponse;
+import com.shock.springbootdeveloper.dto.UpdateArticleRequest;
 import com.shock.springbootdeveloper.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,12 @@ public class BlogApiController {
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
         blogService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Void> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
+//        blogService.updateById(article);
         return ResponseEntity.ok().build();
     }
 }
